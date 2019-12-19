@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>Advent of code 2019</title>
+<script>
+var rangoMin = 372037;
+var rangoMax = 905157;
+var numDigitos = 6;
+// Convierte un número en un array que tiene 6 posiciones y un dígito decimal en cada posición
+function num2arr6(num)
+{
+	var arr = [];
+	for(var i = 0; i < numDigitos; i++)
+	{
+		arr.push(num % 10);
+		num = Math.floor(num / 10);
+	}
+	arr.reverse();
+	return(arr);
+}
+//6 dígitos, al menos hay 2 consecutivos iguales, nunca decrementan
+function valido1(num)
+{
+	var arr = num2arr6(num);
+	var ultimo = -1;
+	var consecutivos = false;
+	for(var i = 0; i < numDigitos; i++)
+	{
+		if(ultimo != -1)
+		{
+			if(arr[i] == ultimo)
+				consecutivos = true;
+			else
+				if(arr[i] < ultimo)
+					return(false);
+		}
+		ultimo = arr[i];
+	}
+	return(consecutivos);
+}
+//6 dígitos, al menos hay 2 consecutivos iguales, nunca decrementan, al menos un grupo de consecutivos tiene sólo 2 dígitos
+function valido2(num)
+{
+	var arr = num2arr6(num);
+	var ultimo = -1;
+	var consecutivos = 1;
+	var consecutivoDoble = false;
+	for(var i = 0; i < numDigitos; i++)
+	{
+		if(ultimo != -1)
+		{
+			if(arr[i] == ultimo)
+				consecutivos++;
+			else
+			{
+				if(consecutivos == 2)
+					consecutivoDoble = true;
+				consecutivos = 1;
+				if(arr[i] < ultimo)
+					return(false);
+			}
+		}
+		ultimo = arr[i];
+	}
+	if(consecutivos == 2)
+		consecutivoDoble = true;
+	return(consecutivoDoble);
+}
+function calcularValidos()
+{
+	var numValidos1 = 0;
+	var numValidos2 = 0;
+	for(var i = rangoMin; i < rangoMax; i++)
+	{
+		if(valido1(i))
+			numValidos1++;
+		if(valido2(i))
+			numValidos2++;
+	}
+	document.getElementById("resultado1").textContent = "(Ej 1) Contraseñas válidas entre " + rangoMin + " y " + rangoMax + ": " + numValidos1;
+	document.getElementById("resultado2").textContent = "(Ej 2) Contraseñas válidas entre " + rangoMin + " y " + rangoMax + ": " + numValidos2;
+}
+</script>
+</head>
+<body>
+<h2>Día 4: contraseña</h2>
+<input type="button" value="Jaquiar" onclick="calcularValidos()" /><br />
+<span id="resultado1"></span><br />
+<span id="resultado2"></span>
+</body>
+</html>

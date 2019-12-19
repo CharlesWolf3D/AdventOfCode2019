@@ -1,0 +1,295 @@
+<html>
+<head>
+<title>Advent of code 2019</title>
+<script>
+var programa = "1102,34463338,34463338,63,1007,63,34463338,63,1005,63,53,1102,3,1,1000,109,988,209,12,9,1000,209,6,209,3,203,0,1008,1000,1,63,1005,63,65,1008,1000,2,63,1005,63,904,1008,1000,0,63,1005,63,58,4,25,104,0,99,4,0,104,0,99,4,17,104,0,99,0,0,1102,0,1,1020,1102,1,38,1015,1102,37,1,1003,1102,21,1,1002,1102,34,1,1017,1101,39,0,1008,1102,1,20,1007,1101,851,0,1022,1102,1,1,1021,1101,24,0,1009,1101,0,26,1005,1101,29,0,1019,1101,0,866,1027,1101,0,260,1025,1102,33,1,1014,1101,0,36,1006,1102,1,25,1018,1102,1,669,1028,1101,0,27,1016,1101,0,23,1012,1102,35,1,1004,1102,1,31,1011,1101,0,664,1029,1101,32,0,1010,1101,0,22,1000,1102,873,1,1026,1102,1,848,1023,1102,265,1,1024,1101,0,28,1013,1101,30,0,1001,109,6,2107,31,-5,63,1005,63,201,1001,64,1,64,1106,0,203,4,187,1002,64,2,64,109,4,21107,40,39,1,1005,1011,219,1106,0,225,4,209,1001,64,1,64,1002,64,2,64,109,-1,2102,1,0,63,1008,63,24,63,1005,63,247,4,231,1106,0,251,1001,64,1,64,1002,64,2,64,109,9,2105,1,6,4,257,1105,1,269,1001,64,1,64,1002,64,2,64,109,-18,2108,19,2,63,1005,63,289,1001,64,1,64,1106,0,291,4,275,1002,64,2,64,109,23,21108,41,41,-8,1005,1015,313,4,297,1001,64,1,64,1106,0,313,1002,64,2,64,109,-19,2101,0,-4,63,1008,63,23,63,1005,63,333,1106,0,339,4,319,1001,64,1,64,1002,64,2,64,109,9,1206,7,357,4,345,1001,64,1,64,1105,1,357,1002,64,2,64,109,-15,2108,22,2,63,1005,63,375,4,363,1105,1,379,1001,64,1,64,1002,64,2,64,109,10,1208,-7,30,63,1005,63,397,4,385,1106,0,401,1001,64,1,64,1002,64,2,64,109,-7,1201,8,0,63,1008,63,27,63,1005,63,421,1106,0,427,4,407,1001,64,1,64,1002,64,2,64,109,-4,1202,3,1,63,1008,63,22,63,1005,63,449,4,433,1105,1,453,1001,64,1,64,1002,64,2,64,109,15,21108,42,40,4,1005,1016,469,1105,1,475,4,459,1001,64,1,64,1002,64,2,64,109,1,21101,43,0,0,1008,1013,43,63,1005,63,501,4,481,1001,64,1,64,1105,1,501,1002,64,2,64,109,-17,1207,10,35,63,1005,63,521,1001,64,1,64,1105,1,523,4,507,1002,64,2,64,109,7,2107,23,6,63,1005,63,545,4,529,1001,64,1,64,1105,1,545,1002,64,2,64,109,3,1201,0,0,63,1008,63,36,63,1005,63,571,4,551,1001,64,1,64,1105,1,571,1002,64,2,64,109,1,21107,44,45,7,1005,1014,593,4,577,1001,64,1,64,1106,0,593,1002,64,2,64,109,7,1205,6,609,1001,64,1,64,1106,0,611,4,599,1002,64,2,64,109,-14,1202,4,1,63,1008,63,32,63,1005,63,635,1001,64,1,64,1106,0,637,4,617,1002,64,2,64,109,30,1205,-9,651,4,643,1105,1,655,1001,64,1,64,1002,64,2,64,109,-4,2106,0,2,4,661,1106,0,673,1001,64,1,64,1002,64,2,64,109,-5,21101,45,0,-8,1008,1013,42,63,1005,63,697,1001,64,1,64,1106,0,699,4,679,1002,64,2,64,109,-10,1207,-6,27,63,1005,63,721,4,705,1001,64,1,64,1105,1,721,1002,64,2,64,109,-11,2101,0,6,63,1008,63,36,63,1005,63,743,4,727,1106,0,747,1001,64,1,64,1002,64,2,64,109,3,2102,1,-2,63,1008,63,33,63,1005,63,767,1105,1,773,4,753,1001,64,1,64,1002,64,2,64,109,18,1206,0,789,1001,64,1,64,1106,0,791,4,779,1002,64,2,64,109,-11,1208,-5,23,63,1005,63,807,1106,0,813,4,797,1001,64,1,64,1002,64,2,64,109,-5,21102,46,1,10,1008,1015,46,63,1005,63,835,4,819,1105,1,839,1001,64,1,64,1002,64,2,64,109,11,2105,1,7,1106,0,857,4,845,1001,64,1,64,1002,64,2,64,109,14,2106,0,-3,1001,64,1,64,1106,0,875,4,863,1002,64,2,64,109,-22,21102,47,1,5,1008,1013,48,63,1005,63,899,1001,64,1,64,1106,0,901,4,881,4,64,99,21102,1,27,1,21102,915,1,0,1105,1,922,21201,1,65718,1,204,1,99,109,3,1207,-2,3,63,1005,63,964,21201,-2,-1,1,21102,1,942,0,1105,1,922,22101,0,1,-1,21201,-2,-3,1,21102,957,1,0,1106,0,922,22201,1,-1,-2,1105,1,968,21201,-2,0,-2,109,-3,2105,1,0";
+var op_par =
+{
+	1: 3, //add
+	2: 3, //mul
+	3: 1, //in
+	4: 1, //out
+	5: 2, //jnz
+	6: 2, //jz
+	7: 3, //setl
+	8: 3, //sete
+	9: 1  //add rel
+};
+function cloneArray(arr)
+{
+	var r = [];
+	var len = arr.length;
+	for(var i = 0; i < len; i++)
+		r.push(arr[i]);
+	return(r);
+}
+//prg=array de instrucciones
+//state=array que contiene el estado [posicion_programa, relativo]
+//input=array de entradas
+//output=array de salidas
+//inputSize=número de datos de entrada. la función se saldrá cuando se intente leer una entrada y no queden datos. si es -1, se considera infinito
+//haltOnOutput=si se debe salir cuando se produzca la primera salida
+//0=el programa terminó
+//1=la función se salió porque se intentó leer un dato y ya no quedaban
+//2=la función se salió porque el programa produjo un dato de salida
+//3=instrucción no válida
+//4=modo de memoria no válido
+function ejecutar(prg, state, input, output, inputSize, haltOnOutput)
+{
+	var inputNum = 0;
+	var posicion = Number(state[0]);
+	var nuevaPos;
+	while(1)
+	{
+		var op = Number(prg[posicion]) % 100;
+		var p = Math.floor(Number(prg[posicion]) / 100);
+		var numparams = op_par[op];
+		var params = [];
+		var params_orig = [];
+		var params_types = [];
+		var tmp, write;
+		for(var i = 0; i < numparams; i++)
+		{
+			params_orig.push(prg[posicion + i + 1] === undefined ? undefined : prg[posicion + i + 1]);
+			params_types.push(p % 10);
+			switch(params_types[i])
+			{
+			case 0:
+				tmp = (params_orig[i] === undefined) ? 0 : Number(params_orig[i]);
+				tmp = (prg[tmp] === undefined) ? 0n : BigInt(prg[tmp]);
+				params.push(tmp);
+				break;
+			case 1:
+				tmp = (params_orig[i] === undefined) ? 0n : BigInt(params_orig[i]);
+				params.push(tmp);
+				break;
+			case 2:
+				tmp = (params_orig[i] === undefined) ? 0 : Number(params_orig[i]);
+				tmp += Number(state[1]);
+				tmp = (prg[tmp] === undefined) ? 0n : BigInt(prg[tmp]);
+				params.push(tmp);
+				break;
+			default:
+				return(4);
+			}
+			p = Math.floor(p / 10);
+		}
+		/*
+		var dstr = "" + posicion + ": ";
+		switch(op)
+		{
+		case 1:
+			dstr += "add ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 1: dstr += params_orig[2]; break; case 2: dstr += "[rel + " + params_orig[2] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 2: dstr += "[" + state[1] + " + " + params_orig[2] + "]";}
+			dstr += " = " + BigInt(params_orig[0]) + BigInt(params_orig[1]);
+			break;
+		case 2:
+			dstr += "mul ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 1: dstr += params_orig[2]; break; case 2: dstr += "[rel + " + params_orig[2] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 2: dstr += "[" + state[1] + " + " + params_orig[2] + "]";}
+			dstr += " = " + (BigInt(params_orig[0]) * BigInt(params_orig[1]));
+			break;
+		case 3:
+			dstr += "in ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 2: dstr += "[" + state[1] + " + " + params_orig[0] + "]";}
+			dstr += " = " + input[inputNum];
+			break;
+		case 4:
+			dstr += "out ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			switch(params_types[0]){case 0: dstr += prg[params_orig[0]]; break; case 1: dstr += params_orig[0]; break; case 2: dstr += prg[params_orig[0] + state[1]];}
+			break;
+		case 5:
+			dstr += "jnz ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			dstr += Number(params[0] != 0);
+			break;
+		case 6:
+			dstr += "jz ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			dstr += Number(params[0] == 0);
+			break;
+		case 7:
+			dstr += "setl ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 1: dstr += params_orig[2]; break; case 2: dstr += "[rel + " + params_orig[2] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			dstr += Number(params[0] < params[1]);
+			break;
+		case 8:
+			dstr += "sete ";
+			switch(params_types[2]){case 0: dstr += "[" + params_orig[2] + "]"; break; case 1: dstr += params_orig[2]; break; case 2: dstr += "[rel + " + params_orig[2] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			dstr += ", ";
+			switch(params_types[1]){case 0: dstr += "[" + params_orig[1] + "]"; break; case 1: dstr += params_orig[1]; break; case 2: dstr += "[rel + " + params_orig[1] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			dstr += Number(params[0] == params[1]);
+			//alert(params[0] + " == " + params[1]);
+			break;
+		case 9:
+			dstr += "add rel, ";
+			switch(params_types[0]){case 0: dstr += "[" + params_orig[0] + "]"; break; case 1: dstr += params_orig[0]; break; case 2: dstr += "[rel + " + params_orig[0] + "]"; break; default: dstr += "ERR";}
+			
+			dstr += " -- ";
+			dstr += state[1];
+			break;
+		case 99:
+			dstr += "exit";
+			break;
+		default:
+			dstr += "UD";
+		}
+		console.log(dstr);
+		*/
+		nuevaPos = posicion + op_par[op] + 1;
+		write = undefined;
+		switch(op)
+		{
+		case 1: //add
+			write = BigInt(params[0]) + BigInt(params[1]);
+			break;
+		case 2: //mul
+			write = BigInt(params[0]) * BigInt(params[1]);
+			break;
+		case 3: //in
+			if(inputSize == 0)
+				return(1);
+			if(inputSize != -1)
+				inputSize--;
+			write = BigInt(input[inputNum++]);
+			break;
+		case 4: //out
+			output.push(params[0]);
+			if(haltOnOutput)
+			{
+				state[0] = nuevaPos;
+				return(2);
+			}
+			break;
+		case 5: //jnz
+			if(BigInt(params[0]) != 0n)
+				nuevaPos = Number(params[1]);
+			break;
+		case 6: //jz
+			if(BigInt(params[0]) == 0n)
+				nuevaPos = Number(params[1]);
+			break;
+		case 7: //setl
+			write = Number(BigInt(params[0]) < BigInt(params[1]));
+			break;
+		case 8: //sete
+			write = Number(BigInt(params[0]) == BigInt(params[1]));
+			break;
+		case 9: //add rel
+			state[1] = Number(state[1]) + Number(params[0]);
+			break;
+		case 99: //exit
+			return(0);
+		default:
+			return(3);
+		}
+		if(write !== undefined)
+		{
+			if(params_types[params_types.length - 1] == 2)
+				prg[Number(prg[Number(posicion) + Number(numparams)]) + Number(state[1])] = write;
+			else
+				prg[Number(prg[Number(posicion) + Number(numparams)])] = write;
+		}
+		state[0] = posicion = nuevaPos;
+	}
+}
+function compu()
+{
+	var prg = programa.split(",");
+	var estado = [0, 0];
+	var input = [1];
+	var output = [];
+	var resultado = ejecutar(prg, estado, input, output, 1, 0);
+	if(resultado != 0)
+		msg = "Error: el resultado de la función es " + resultado;
+	else
+	{
+		if(output.length != 1)
+			msg = "Error: el número de datos de salida es " + output.length + " [" + output + "]";
+		else
+			msg = output[0];
+	}
+	document.getElementById("resultado1").textContent = "Código de mejora en test: " + msg;
+	
+	prg = programa.split(",");
+	estado = [0, 0];
+	input = [2];
+	output = [];
+	resultado = ejecutar(prg, estado, input, output, 1, 0);
+	if(resultado != 0)
+		msg = "Error: el resultado de la función es " + resultado;
+	else
+	{
+		if(output.length != 1)
+			msg = "Error: el número de datos de salida es " + output.length + " [" + output + "]";
+		else
+			msg = output[0];
+	}
+	document.getElementById("resultado2").textContent = "Código de mejora en producción: " + msg;
+}
+function test()
+{
+	var estado = [0, 0];
+	var input = [];
+	var output = [];
+	var resultado = ejecutar([109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99], estado, input, output, 0, 0);
+	alert("Prueba 1, res="+resultado+", output="+output);
+	
+	estado = [0, 0];
+	input = [];
+	output = [];
+	resultado = ejecutar([1102,34915192,34915192,7,4,7,99,0], estado, input, output, 0, 0);
+	alert("Prueba 2, res="+resultado+", output="+output);
+	
+	estado = [0, 0];
+	input = [];
+	output = [];
+	resultado = ejecutar([104,1125899906842624,99], estado, input, output, 0, 0);
+	alert("Prueba 3, res="+resultado+", output="+output);
+}
+</script>
+</head>
+<body>
+<h2>Día 9: mejora de los sensores</h2>
+<input type="button" value="Sinergizar mejorizaciones" onclick="compu()" /><br />
+<span id="resultado1"></span><br />
+<span id="resultado2"></span>
+</body>
+</html>

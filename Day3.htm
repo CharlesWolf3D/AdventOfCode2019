@@ -1,0 +1,284 @@
+<html>
+<head>
+<title>Advent of code 2019</title>
+<script>
+var txtCable1 =
+"R998,U502,R895,D288,R416,U107,R492,U303,R719,D601,R783,D154,L236,U913,R833,D329,R28,D759,L270,D549,L245,U653,L851,U676,L211,D949,R980,U314,L897,U764,R149,D214,L195,D907,R534,D446,R362,D6,L246,D851,L25,U925,L334,U673,L998,U581,R783,U912,R53,D694,L441,U411,L908,D756,R946,D522,L77,U468,R816,D555,L194,D707,R97,D622,R99,D265,L590,U573,R132,D183,L969,D207,L90,D331,R88,D606,L315,U343,R546,U460,L826,D427,L232,U117,R125,U309,R433,D53,R148,U116,L437,U339,L288,D879,L52,D630,R201,D517,L341,U178,R94,U636,L759,D598,L278,U332,R192,U463,L325,U850,L200,U810,L686,U249,L226,D297,R915,D117,R56,D59,R760,U445,R184,U918,R173,D903,R212,D868,L88,D798,L829,U835,L563,U19,R480,D989,R529,D834,R515,U964,L876,D294,R778,D551,L457,D458,R150,D698,R956,D781,L310,D948,R50,U56,R98,U348,L254,U614,L654,D359,R632,D994,L701,D615,R64,D507,R668,D583,L687,D902,L564,D214,R930,D331,L212,U943,R559,U886,R590,D805,R426,U669,L141,D233,L573,D682,L931,U267,R117,D900,L944,U667,L838,D374,L406,U856,R987,D870,R716,D593,R596,D654,R653,U120,L666,U145,R490,D629,R172,D881,L808,D324,R956,D532,L475,U165,L503,U361,R208,U323,R568,D876,R663,D11,L839,D67,R499,U75,L643,U954,R94,D418,R761,D842,L213,D616,L785,D42,R707,D343,L513,D480,L531,D890,L899,D2,L30,D188,R32,U588,R480,U33,R849,U443,L666,U117,L13,D974,L453,U93,R960,D369,R332,D61,L17,U557,R818,D744,L124,U916,L454,D572,R451,D29,R711,D134,R481,U366,L327,U132,L819,U839,R485,U941,R224,U531,R688,U561,R958,D899,L315,U824,L408,D941,R517,D163,L878,U28,R767,D798,R227"
+;
+var txtCable2 =
+"L1009,U399,R373,U980,L48,U638,R725,U775,R714,D530,L887,D576,L682,D940,L371,D621,L342,D482,R676,D445,R752,U119,L361,D444,L769,D854,L874,U259,R332,U218,R866,U28,L342,D233,L958,U649,R998,U262,L8,D863,L283,D449,L73,D438,L516,D54,R964,D981,R338,U332,L761,U704,L705,D468,L115,U834,R367,D156,R480,U27,R846,U73,R846,D720,R811,D466,L407,U928,R816,U50,R90,D893,L930,D833,L159,D972,L823,U868,R689,D558,L777,D13,R844,D8,L168,U956,L111,D462,L667,U559,L839,U503,R906,D838,R83,D323,L782,U588,R599,D233,L700,U679,L51,U779,L110,D260,L201,U992,L43,D557,L628,D875,L201,U535,L246,D976,L546,D22,R600,D301,L542,D41,R532,U316,L765,D310,L666,D369,R853,U684,L457,U816,L667,U758,R798,U959,R893,D185,L842,U168,R68,D348,R394,D296,R966,D511,L319,U717,L57,U129,R843,U439,L744,D870,L162,D991,R77,D565,R494,U601,L851,U748,L96,U124,L379,D446,L882,U371,R133,U820,L935,D704,L670,D911,L182,U138,R844,U926,L552,D716,L849,U624,R723,U117,R252,D737,L216,U796,R156,U322,R812,D390,L50,D493,L665,U314,L584,U798,L11,U524,R171,U837,R981,U32,L277,U650,L865,U28,R399,U908,R652,D543,L779,D406,L839,D198,L190,D319,L776,U752,R383,D884,R385,D682,R729,D163,R252,U533,L690,D767,R533,D147,R366,U716,R548,U171,R932,U720,L9,D39,R895,U850,L276,D988,L528,U551,L262,D480,L275,D567,R70,D599,L814,U876,R120,U93,L565,U795,L278,D41,R695,D693,R208,U272,L923,U498,R238,U268,L244,U278,R965,U395,R990,U329,L478,D245,R980,D473,L702,U396,R358,U636,R400,D919,R240,U780,L251,D633,L55,D723,L529,U319,L299,D89,L251,D557,L705,D705,L391,D58,R241"
+;
+// Devuelve el valor numérico de una cadena con un sólo dígito
+// Devuelve -1 si la cadena no contiene un único dígito
+// ch = cadena con el carácter a evaluar
+function numchar(ch)
+{
+	switch(ch)
+	{
+		case "0": return(0);
+		case "1": return(1);
+		case "2": return(2);
+		case "3": return(3);
+		case "4": return(4);
+		case "5": return(5);
+		case "6": return(6);
+		case "7": return(7);
+		case "8": return(8);
+		case "9": return(9);
+	}
+	return(-1);
+}
+// Lee la cadena txt y pone la lista de tipos en arrTypes y la lista de distancias en arrPos
+// Tipo es 0 para horizontal, 1 para vertical
+// txt = cadena de texto con el camino del cable, ej.: "U12,D34,L56,R78"
+// arrTypes = contendrá la lista de tipos de segmentos de cable
+// arrLens = contendrá la lista de longitudes de segmentos de cables (pueden ser negativas si van hacia arriba o hacia la izquierda)
+function obtenerArrays(txt, arrTypes, arrLens)
+{
+	var len = txt.length;
+	var type, factor;
+	var n;
+	var ch;
+	var numberValue;
+	for(var i = 0; i < len; )
+	{
+		n = 0;
+		ch = txt.substring(i, i + 1); i++;
+		switch(ch)
+		{
+			case "L": type = 0; factor = -1; break;
+			case "R": type = 0; factor =  1; break;
+			case "U": type = 1; factor = -1; break;
+			case "D": type = 1; factor =  1; break;
+			default: return;
+		}
+		ch = txt.substring(i, i + 1); i++;
+		while((numberValue = numchar(ch)) != -1)
+		{
+			n *= 10;
+			n += numberValue;
+			ch = txt.substring(i, i + 1); i++;
+		}
+		arrTypes.push(type);
+		arrLens.push(n * factor);
+	}
+}
+// Devuelve en x1,y1 las coordenadas con la distancia manhattan más corta a 0,0
+// arr = array que debe contener los 2 puntos a comparar [x1,y1,x2,y2]
+// Las coordenadas 0,0 no se consideran un punto válido aunque su distancia sea la mínima
+function getShortest(arr)
+{
+	var
+	x1 = arr[0],
+	y1 = arr[1],
+	x2 = arr[2],
+	y2 = arr[3];
+	var d1 = Math.abs(x1) + Math.abs(y1);
+	var d2 = Math.abs(x2) + Math.abs(y2);
+	if(((d2 < d1) && (d2 != 0)) || d1 == 0)
+	{
+		arr[0] = x2;
+		arr[1] = y2;
+	}
+}
+// Devuelve en intDist la distancia más corta que recorren dos cables
+// arr = array que debe contener [intDist,x,y,back1,c1_startX,c1_startY,typ1,seg1,back2,c2_startX,c2_startY,typ2,seg2]
+//     intDist = distancia que recorren los cables pasando por la intersección
+//     x = coordenada x de la intersección
+//     y = coordenada y de la intersección
+//     back1 = distancia acumulada del cable 1
+//     c1_startX = coordenada x de inicio del segmento 1
+//     c1_startY = coordenada y de inicio del segmento 1
+//     typ1 = tipo del segmento del cable 1
+//     seg1 = valor del segmento del cable 1
+//     back2 = distancia acumulada del cable 2
+//     c2_startX = coordenada x de inicio del segmento 2
+//     c2_startY = coordenada y de inicio del segmento 2
+//     typ2 = tipo del segmento del cable 2
+//     seg2 = valor del segmento del cable 2
+// La distancia 0 no se considera válida
+function traceBack(arr)
+{
+	var
+	intDist   = arr[0],
+	x         = arr[1],
+	y         = arr[2],
+	back1     = arr[3],
+	c1_startX = arr[4],
+	c1_startY = arr[5],
+	typ1      = arr[6],
+	seg1      = arr[7],
+	back2     = arr[8],
+	c2_startX = arr[9],
+	c2_startY = arr[10],
+	typ2      = arr[11],
+	seg2      = arr[12];
+	var newDist;
+	if(typ1 == 0)
+	{
+		if(seg1 > 0)
+			back1 += x - c1_startX;
+		else
+			back1 += c1_startX - x;
+	}
+	else
+	{
+		if(seg1 > 0)
+			back1 += y - c1_startY;
+		else
+			back1 += c1_startY - y;
+	}
+	if(typ2 == 0)
+	{
+		if(seg2 > 0)
+			back2 += x - c2_startX;
+		else
+			back2 += c2_startX - x;
+	}
+	else
+	{
+		if(seg2 > 0)
+			back2 += y - c2_startY;
+		else
+			back2 += c2_startY - y;
+	}
+	newDist = back1 + back2;
+	if(((newDist < intDist) && (newDist != 0)) || intDist == 0)
+		arr[0] = newDist;
+}
+function calcularDistanciaMinima()
+{
+	var intX = 0;
+	var intY = 0;
+	var intDist = 0;
+	var c1_startX, c1_startY, c1_endX, c1_endY;
+	var c2_startX, c2_startY, c2_endX, c2_endY;
+	var local_c1_startX, local_c1_startY, local_c1_endX, local_c1_endY;
+	var local_c2_startX, local_c2_startY, local_c2_endX, local_c2_endY;
+	var types1 = [], types2 = [];
+	var lens1 = [], lens2 = [];
+	var backs1 = [], backs2 = [];
+	obtenerArrays(txtCable1, types1, lens1);
+	obtenerArrays(txtCable2, types2, lens2);
+	var segs1 = types1.length;
+	var segs2 = types2.length;
+	backs1.push(0);
+	for(var i = 1; i < segs1; i++)
+	{
+		backs1.push(backs1[i - 1] + Math.abs(lens1[i - 1]));
+	}
+	backs2.push(0);
+	for(var i = 1; i < segs2; i++)
+		backs2.push(backs2[i - 1] + Math.abs(lens2[i - 1]));
+	c1_endX = c1_endY = 0;
+	for(var i = 0; i < segs1; i++)
+	{
+		c1_startX = c1_endX;
+		c1_startY = c1_endY;
+		if(types1[i] == 0) c1_endX += lens1[i];
+		else  c1_endY += lens1[i];
+		c2_endX = c2_endY = 0;
+		for(var j = 0; j < segs2; j++)
+		{
+			c2_startX = c2_endX;
+			c2_startY = c2_endY;
+			if(types2[j] == 0) c2_endX += lens2[j];
+			else  c2_endY += lens2[j];
+			
+			local_c1_startX = Math.min(c1_startX, c1_endX);
+			local_c1_startY = Math.min(c1_startY, c1_endY);
+			local_c1_endX   = Math.max(c1_startX, c1_endX);
+			local_c1_endY   = Math.max(c1_startY, c1_endY);
+			local_c2_startX = Math.min(c2_startX, c2_endX);
+			local_c2_startY = Math.min(c2_startY, c2_endY);
+			local_c2_endX   = Math.max(c2_startX, c2_endX);
+			local_c2_endY   = Math.max(c2_startY, c2_endY);
+			
+			if(types1[i] == types2[j])
+			{
+				if(types1[i] == 0)
+				{
+					//hor-hor
+					if(local_c1_startY == local_c2_startY)
+					{
+						if(((local_c2_startX >= local_c1_startX) && (local_c2_startX <= local_c1_endX)) || ((local_c2_endX >= local_c1_startX) && (local_c2_endX <= local_c1_endX)))
+						{
+							var first = Math.max(local_c1_startX, local_c2_startX);
+							var last = Math.min(local_c1_endX, local_c2_endX);
+							for(var x = first; x <= last; x++)
+							{
+								var arr = [intX, intY, x, local_c1_startY];
+								getShortest(arr);
+								intX = arr[0];
+								intY = arr[1];
+								arr = [intDist, x, local_c1_startY, backs1[i], c1_startX, c1_startY, types1[i], lens1[i], backs2[j], c2_startX, c2_startY, types2[j], lens2[j]];
+								traceBack(arr);
+								intDist = arr[0];
+							}
+						}
+					}
+				}
+				else
+				{
+					//ver-ver
+					if(local_c1_startX == local_c2_startX)
+					{
+						if(((local_c2_startY >= local_c1_startY) && (local_c2_startY <= local_c1_endY)) || ((local_c2_endY >= local_c1_startY) && (local_c2_endY <= local_c1_endY)))
+						{
+							var first = Math.max(local_c1_startY, local_c2_startY);
+							var last = Math.min(local_c1_endY, local_c2_endY);
+							for(var y = first; y <= last; y++)
+							{
+								var arr = [intX, intY, local_c1_startX, y];
+								getShortest(arr);
+								intX = arr[0];
+								intY = arr[1];
+								arr = [intDist, local_c1_startX, y, backs1[i], c1_startX, c1_startY, types1[i], lens1[i], backs2[j], c2_startX, c2_startY, types2[j], lens2[j]];
+								traceBack(arr);
+								intDist = arr[0];
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				var hor_startX, hor_startY, hor_endX, hor_endY;
+				var ver_startX, ver_startY, ver_endX, ver_endY;
+				if(types1[i] == 0)
+				{
+					//hor-ver
+					hor_startX = local_c1_startX; hor_startY = local_c1_startY; hor_endX = local_c1_endX; hor_endY = local_c1_endY;
+					ver_startX = local_c2_startX; ver_startY = local_c2_startY; ver_endX = local_c2_endX; ver_endY = local_c2_endY;
+				}
+				else
+				{
+					//ver-hor
+					hor_startX = local_c2_startX; hor_startY = local_c2_startY; hor_endX = local_c2_endX; hor_endY = local_c2_endY;
+					ver_startX = local_c1_startX; ver_startY = local_c1_startY; ver_endX = local_c1_endX; ver_endY = local_c1_endY;
+				}
+				if((hor_startX <= ver_startX) && (hor_endX >= ver_startX) && (ver_startY <= hor_startY) && (ver_endY >= hor_startY))
+				{
+					var arr = [intX, intY, ver_startX, hor_startY];
+					getShortest(arr);
+					intX = arr[0];
+					intY = arr[1];
+					arr = [intDist, ver_startX, hor_startY, backs1[i], c1_startX, c1_startY, types1[i], lens1[i], backs2[j], c2_startX, c2_startY, types2[j], lens2[j]];
+					traceBack(arr);
+					intDist = arr[0];
+				}
+			}
+		}
+	}
+	document.getElementById("resultado1").textContent = "Distancia a intersección más cercana: " + (Math.abs(intX) + Math.abs(intY));
+	document.getElementById("resultado2").textContent = "Longitud de cables más corta: " + intDist;
+}
+</script>
+</head>
+<body>
+<h2>Día 3: cablecitos</h2>
+<input type="button" value="Liarse" onclick="calcularDistanciaMinima()" /><br />
+<span id="resultado1"></span><br>
+<span id="resultado2"></span>
+</body>
+</html>
