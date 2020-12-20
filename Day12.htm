@@ -1,0 +1,166 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Advent of code 2019</title>
+<script>
+Math.lcm = function()
+{
+	if(arguments.length == 0)
+		return null;
+	if(arguments.length == 1)
+	{
+		if(typeof arguments[0] != 'object')
+			return Math.abs(parseInt(arguments[0]));
+		let list = arguments[0];
+		if(list.length == 0)
+			return null;
+		if(list.length == 1)
+			return Math.abs(parseInt(list[0]));
+		let res = Math.lcm(list[0], list[1]);
+		for(let i = 2; i < list.length; i++)
+			res = Math.lcm(res, list[i]);
+		return res;
+	}
+	if(arguments.length > 2)
+		return Math.lcm(arguments);
+	let n1 = Math.abs(parseInt(arguments[0]));
+	let n2 = Math.abs(parseInt(arguments[1]));
+	if(n1 == 0)
+		return n2;
+	if(n2 == 0)
+		return n1;
+	let large = Math.max(n1, n2);
+	let small = Math.min(n1, n2);
+	let i = large;
+	while(i % small !== 0)
+		i += large;
+	return i;
+}
+var input =
+	'<x=10, y=15, z=7>' +
+	'<x=15, y=10, z=0>' +
+	'<x=20, y=12, z=3>' +
+	'<x=0, y=-3, z=13>';
+class Moon
+{
+	constructor(x, y, z, vx = 0, vy = 0, vz = 0)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.vx = vx;
+		this.vy = vy;
+		this.vz = vz;
+	}
+	getPotentialEnergy()
+	{
+		return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z);
+	}
+	getKineticEnergy()
+	{
+		return Math.abs(this.vx) + Math.abs(this.vy) + Math.abs(this.vz);
+	}
+	getTotalEnergy()
+	{
+		return this.getPotentialEnergy() * this.getKineticEnergy();
+	}
+}
+class Group
+{
+	constructor(input = null)
+	{
+		this.moons = [];
+		if(input !== null)
+		{
+			if(typeof input == 'string')
+			{
+				let lines = input.split('><');
+				for(let line of lines)
+				{
+					let vals = JSON.parse('{'+line.replace(/^</, '').replace(/>$/, '').replace(/=/g, ':').replace(/x/g, '"x"').replace(/y/g, '"y"').replace(/z/g, '"z"')+'}');
+					Array.push(this.moons, new Moon(vals.x, vals.y, vals.z));
+				}
+			}
+			else
+			{
+				for(let moon of input)
+					Array.push(this.moons, new Moon(moon.x, moon.y, moon.z));
+			}
+		}
+	}
+	stepCoord(coord, steps = 1)
+	{
+		while(steps--)
+		{
+			for(let i in this.moons)
+			{
+				for(let j = parseInt(i) + 1; j < this.moons.length; j++)
+				{
+					let m1 = this.moons[i];
+					let m2 = this.moons[j];
+					if(m1[coord] < m2[coord]){m1['v'+coord]++; m2['v'+coord]--;}
+					if(m1[coord] > m2[coord]){m1['v'+coord]--; m2['v'+coord]++;}
+				}
+			}
+			for(let moon of this.moons)
+				moon[coord] += moon['v'+coord];
+		}
+	}
+	step(steps = 1)
+	{
+		this.stepCoord('x', steps);
+		this.stepCoord('y', steps);
+		this.stepCoord('z', steps);
+	}
+	getEnergy()
+	{
+		let e = 0;
+		for(let moon of this.moons)
+			e += moon.getTotalEnergy();
+		return e;
+	}
+	getRepeat(coord, max = null)
+	{
+		let steps = 0;
+		let groupStates = {};
+		while(1)
+		{
+			let moonStates = [];
+			for(let moon of this.moons)
+				Array.push(moonStates, [moon[coord], moon['v'+coord]].join(','));
+			if(max !== null)
+				if(steps == max)
+					return null;
+			let string = moonStates.join(',');
+			if(groupStates[string] !== undefined)
+				return steps;
+			groupStates[string] = steps;
+			this.stepCoord(coord);
+			steps++;
+		}
+	}
+}
+function calc()
+{
+	let group = new Group(input);
+	group.step(1000);
+	document.getElementById('resultado1').textContent = 'Energía del sistema tras 1000 pasos: ' + group.getEnergy();
+	
+	let gx = new Group(input);
+	let gy = new Group(input);
+	let gz = new Group(input);
+	let rx = gx.getRepeat('x', 1000000);
+	let ry = gy.getRepeat('y', 1000000);
+	let rz = gz.getRepeat('z', 1000000);
+	let minSteps = Math.lcm(rx, ry, rz);
+	document.getElementById('resultado2').textContent = 'Número de pasos para la primera repetición: ' + minSteps;
+}
+</script>
+</head>
+<body>
+<h2>Día 12: lunas gravitacionales</h2>
+<input type="button" value="Lunático" onclick="calc()" /><br />
+<span id="resultado1"></span><br />
+<span id="resultado2"></span>
+</body>
+</html>
