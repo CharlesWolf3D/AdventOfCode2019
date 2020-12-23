@@ -2,126 +2,27 @@
 <head>
 <meta charset="utf-8">
 <title>Advent of code 2019</title>
+<script src="computer.js"></script>
 <script>
-var programa =
+var program =
 [
 	3,8,1001,8,10,8,105,1,0,0,21,34,59,76,101,114,195,276,357,438,99999,3,9,1001,9,4,9,1002,9,4,9,4,9,99,3,9,102,4,9,9,101,2,9,9,102,4,9,9,1001,9,3,9,102,2,9,9,4,9,99,3,9,101,4,9,9,102,5,9,9,101,5,9,9,4,9,99,3,9,102,2,9,9,1001,9,4,9,102,4,9,9,1001,9,4,9,1002,9,3,9,4,9,99,3,9,101,2,9,9,1002,9,3,9,4,9,99,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,99,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,2,9,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,99
 ];
-var op_par =
-{
-	1: 3, //add
-	2: 3, //mul
-	3: 1, //in
-	4: 1, //out
-	5: 2, //jnz
-	6: 2, //jz
-	7: 3, //setl
-	8: 3  //sete
-};
-function cloneArray(arr)
-{
-	var r = [];
-	var len = arr.length;
-	for(var i = 0; i < len; i++)
-		r.push(arr[i]);
-	return(r);
-}
-//prg=array de instrucciones
-//start=array que contiene la posición de inicio, valor que también se devuelve
-//input=array de entradas
-//output=array de salidas
-//inputSize=número de datos de entrada. la función se saldrá cuando se intente leer una entrada y no queden datos. si es -1, se considera infinito
-//haltOnOutput=si se debe salir cuando se produzca la primera salida
-//0=el programa terminó
-//1=la función se salió porque se intentó leer un dato y ya no quedaban
-//2=la función se salió porque el programa produjo un dato de salida
-//3=instrucción no válida
-//4=modo de memoria no válido
-function ejecutar(prg, start, input, output, inputSize, haltOnOutput)
-{
-	var inputNum = 0;
-	var posicion = start[0];
-	while(1)
-	{
-		var op = prg[posicion] % 100;
-		var p = Math.floor(prg[posicion] / 100);
-		var numparams = op_par[op];
-		var params = [];
-		for(var i = 0; i < numparams; i++)
-		{
-			switch(p % 10)
-			{
-			case 0:
-				params.push(prg[prg[posicion + i + 1]]);
-				break;
-			case 1:
-				params.push(prg[posicion + i + 1]);
-				break;
-			default:
-				return(4);
-			}
-			p = Math.floor(p / 10);
-		}
-		nuevaPos = posicion + op_par[op] + 1;
-		switch(op)
-		{
-		case 1:
-			prg[prg[posicion + numparams]] = params[0] + params[1];
-			break;
-		case 2:
-			prg[prg[posicion + numparams]] = params[0] * params[1];
-			break;
-		case 3:
-			if(inputSize == 0)
-				return(1);
-			if(inputSize != -1)
-				inputSize--;
-			prg[prg[posicion + numparams]] = input[inputNum++];
-			break;
-		case 4:
-			output.push(params[0]);
-			if(haltOnOutput)
-			{
-				start[0] = nuevaPos;
-				return(2);
-			}
-			break;
-		case 5:
-			if(params[0] != 0)
-				nuevaPos = params[1];
-			break;
-		case 6:
-			if(params[0] == 0)
-				nuevaPos = params[1];
-			break;
-		case 7:
-			prg[prg[posicion + numparams]] = params[0] < params[1];
-			break;
-		case 8:
-			prg[prg[posicion + numparams]] = params[0] == params[1];
-			break;
-		case 99:
-			return(0);
-		default:
-			return(3);
-		}
-		start[0] = posicion = nuevaPos;
-	}
-}
+
 function perms(arr)
 {
-	for(var n1 = 0; n1 < 5; n1++)
+	for(let n1 = 0; n1 < 5; n1++)
 	{
-		for(var n2 = 0; n2 < 5; n2++)
+		for(let n2 = 0; n2 < 5; n2++)
 		{
 			if(n2 == n1) continue;
-			for(var n3 = 0; n3 < 5; n3++)
+			for(let n3 = 0; n3 < 5; n3++)
 			{
 				if((n3 == n2) || (n3 == n1)) continue;
-				for(var n4 = 0; n4 < 5; n4++)
+				for(let n4 = 0; n4 < 5; n4++)
 				{
 					if((n4 == n3) || (n4 == n2) || (n4 == n1)) continue;
-					for(var n5 = 0; n5 < 5; n5++)
+					for(let n5 = 0; n5 < 5; n5++)
 					{
 						if((n5 == n4) || (n5 == n3) || (n5 == n2) || (n5 == n1)) continue;
 						arr.push([n1, n2, n3, n4, n5]);
@@ -131,75 +32,72 @@ function perms(arr)
 		}
 	}
 }
+
 function compu()
 {
 	//encontrar las permutaciones de 01234
-	var permutaciones = [];
+	let permutaciones = [];
 	perms(permutaciones);
 	//ejecutar el programa con todas las permutaciones
-	var max = 0;
-	for(var j = 0; j < permutaciones.length; j++)
+	let computer;
+	let max = 0;
+	for(let fase of permutaciones)
 	{
-		var fase = permutaciones[j];
-		var dato = 0;
-		for(var i = 0; i < 5; i++)
+		let dato = 0;
+		for(let i = 0; i < 5; i++)
 		{
-			var salida = [];
-			var prg = cloneArray(programa);
-			ejecutar(prg, [0], [fase[i], dato], salida, 2, 0);
-			dato = salida[0];
+			let salida = [];
+			computer = new Computer({'program': program});
+			computer.setInput([fase[i], dato]);
+			computer.setOutput(salida);
+			computer.run();
+			dato = parseInt(salida[0]);
 		}
 		if(dato > max)
 			max = dato;
 	}
-	document.getElementById("resultado1").textContent = "Potencia máxima del cohete: " + max;
+	document.getElementById('resultado1').textContent = 'Potencia máxima del cohete: ' + max;
+	
 	//encontrar las permutaciones de 56789
-	for(var j = 0; j < permutaciones.length; j++)
-		for(var i = 0; i < permutaciones[j].length; i++)
+	for(let j = 0; j < permutaciones.length; j++)
+		for(let i = 0; i < permutaciones[j].length; i++)
 			permutaciones[j][i] += 5;
 	//ejecutar el programa en modo retroalimentación con todas las permutaciones
-	var last = undefined;
+	let last = undefined;
 	max = undefined;
-	for(var j = 0; j < permutaciones.length; j++)
+	for(let j = 0; j < permutaciones.length; j++)
 	{
-		var fase = permutaciones[j];
-		var prg1 = cloneArray(programa);
-		var prg2 = cloneArray(programa);
-		var prg3 = cloneArray(programa);
-		var prg4 = cloneArray(programa);
-		var prg5 = cloneArray(programa);
-		var ip1 = [0];
-		var ip2 = [0];
-		var ip3 = [0];
-		var ip4 = [0];
-		var ip5 = [0];
-		var r1, r2, r3, r4, r5;
-		var salida = [];
-		var dato = 0;
-		r1 = ejecutar(prg1, ip1, [fase[0], dato], salida, 2, 1); dato = salida[0]; salida = [];
-		r2 = ejecutar(prg2, ip2, [fase[1], dato], salida, 2, 1); dato = salida[0]; salida = [];
-		r3 = ejecutar(prg3, ip3, [fase[2], dato], salida, 2, 1); dato = salida[0]; salida = [];
-		r4 = ejecutar(prg4, ip4, [fase[3], dato], salida, 2, 1); dato = salida[0]; salida = [];
-		r5 = ejecutar(prg5, ip5, [fase[4], dato], salida, 2, 1); dato = salida[0]; salida = [];
+		let fase = permutaciones[j];
+		let prg1 = new Computer({'program': program});
+		let prg2 = new Computer({'program': program});
+		let prg3 = new Computer({'program': program});
+		let prg4 = new Computer({'program': program});
+		let prg5 = new Computer({'program': program});
+		let r1, r2, r3, r4, r5;
+		let salida = [];
+		let dato = 0;
+		prg1.setInput([fase[0], dato]); prg1.setOutput(salida, 1); r1 = prg1.run(); dato = parseInt(salida[0]); salida = [];
+		prg2.setInput([fase[1], dato]); prg2.setOutput(salida, 1); r2 = prg2.run(); dato = parseInt(salida[0]); salida = [];
+		prg3.setInput([fase[2], dato]); prg3.setOutput(salida, 1); r3 = prg3.run(); dato = parseInt(salida[0]); salida = [];
+		prg4.setInput([fase[3], dato]); prg4.setOutput(salida, 1); r4 = prg4.run(); dato = parseInt(salida[0]); salida = [];
+		prg5.setInput([fase[4], dato]); prg5.setOutput(salida, 1); r5 = prg5.run(); dato = parseInt(salida[0]); salida = [];
 		last = dato;
-		while(1)
+		let stop = false;
+		while(!stop)
 		{
-			r1 = ejecutar(prg1, ip1, [dato], salida, 1, 1); dato = salida[0]; salida = [];
-			if(r1 != 2) break;
-			r2 = ejecutar(prg2, ip2, [dato], salida, 1, 1); dato = salida[0]; salida = [];
-			if(r2 != 2) break;
-			r3 = ejecutar(prg3, ip3, [dato], salida, 1, 1); dato = salida[0]; salida = [];
-			if(r3 != 2) break;
-			r4 = ejecutar(prg4, ip4, [dato], salida, 1, 1); dato = salida[0]; salida = [];
-			if(r4 != 2) break;
-			r5 = ejecutar(prg5, ip5, [dato], salida, 1, 1); dato = salida[0]; salida = [];
-			if(r5 != 2) break;
+			prg1.setInput([dato]); prg1.setOutput(salida, 1); r1 = prg1.run(); dato = parseInt(salida[0]); salida = [];
+			prg2.setInput([dato]); prg2.setOutput(salida, 1); r2 = prg2.run(); dato = parseInt(salida[0]); salida = [];
+			prg3.setInput([dato]); prg3.setOutput(salida, 1); r3 = prg3.run(); dato = parseInt(salida[0]); salida = [];
+			prg4.setInput([dato]); prg4.setOutput(salida, 1); r4 = prg4.run(); dato = parseInt(salida[0]); salida = [];
+			prg5.setInput([dato]); prg5.setOutput(salida, 1); r5 = prg5.run(); dato = parseInt(salida[0]); salida = [];
+			if(r5 == END_HALT)
+				stop = true;
 			last = dato;
 		}
 		if((max == undefined) || (last > max))
 			max = last;
 	}
-	document.getElementById("resultado2").textContent = "Potencia máxima del cohete con retroalimentación: " + max;
+	document.getElementById('resultado2').textContent = 'Potencia máxima del cohete con retroalimentación: ' + max;
 }
 </script>
 </head>
