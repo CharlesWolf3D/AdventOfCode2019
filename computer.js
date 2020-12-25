@@ -525,14 +525,22 @@ class Computer
 	}
 	
 	// establece los datos de entrada
-	// input = array a utilizar para obtener los datos de entrada
+	// input = array a utilizar para obtener los datos de entrada, si es null, se parará la ejecución al intentar leer 
 	// inputSize = número máximo de datos a leer. si es false, se asumirá la longitud del array input
 	// si durante la ejecución se intentasen leer más datos que inputSize, se devolvería END_NOINPUT
 	setInput(input, inputSize = false, haltOnInput = false)
 	{
 		this.input = input;
-		this.inputSize = inputSize == false ? this.input.length : inputSize;
-		this.haltOnInput = haltOnInput;
+		if(input == null)
+		{
+			this.inputSize = 0;
+			this.haltOnInput = true;
+		}
+		else
+		{
+			this.inputSize = inputSize == false ? this.input.length : inputSize;
+			this.haltOnInput = haltOnInput;
+		}
 		this.inputRead = 0;
 	}
 	
@@ -824,7 +832,7 @@ class Computer
 				this.errCode = END_FULLOUTPUT;
 				return this.errCode;
 			}
-			if(this.haltOnInput && (this.inputRead == this.inputSize))
+			if(opcode == OP_IN && this.haltOnInput && (this.inputRead == this.inputSize))
 			{
 				this.errCode = END_NOINPUT;
 				return this.errCode;
